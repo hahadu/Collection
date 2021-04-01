@@ -566,6 +566,25 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         return $this->first($callback,$default);
     }
 
+    /****
+     * 数组去重
+     * @return mixed
+     */
+    public function unique(){
+        $unique = array_unique($this->items);
+        return new static($unique);
+    }
+
+    /*****
+     * 列出数组中重复的元素
+     * @return mixed
+     */
+    public function diff_assoc(){
+        $unique = $this->unique()->toArray();
+        $repeat = array_diff_assoc($this->items,$unique);
+        return new static($repeat);
+    }
+
     /**
      * 截取数组
      *
@@ -584,6 +603,16 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->items);
+    }
+
+    /*****
+     * 函数搜索数组中是否存在指定的值
+     * @param mixed $needle 需要查找的内容
+     * @param false $strict 是否不欺负大小写
+     * @return boolean
+     */
+    public function isIn($needle, $strict = false){
+        return in_array($needle, $this->items,$strict);
     }
 
     public function offsetGet($offset)
