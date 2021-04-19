@@ -4,22 +4,29 @@
 namespace Hahadu\Collect;
 
 use ArrayAccess;
-use ArrayIterator;
 use Countable;
+use Hahadu\Collect\Iterators\Iteratorable;
+use Hahadu\Collect\Iterators\Seekable;
 use IteratorAggregate;
 use JsonSerializable;
 use Hahadu\Collect\Interfaces\ArrayInterface;
 use Hahadu\Collect\Interfaces\JsonInterface;
-class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSerializable,JsonInterface,ArrayInterface
+
+class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSerializable,JsonInterface,ArrayInterface
 {
+    use Iteratorable;
+    use Seekable;
     /**
      * 数据集数据
      * @var array
      */
     protected $items = [];
 
-    public function __construct($items = [])
+
+    public function __construct($items = [], $flags = 0, $iteratorClass = "ArrayIterator")
     {
+     //   parent::__construct($items,$flags,$iteratorClass);
+
         $this->items = $this->convertToArray($items);
     }
 
@@ -640,11 +647,6 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         return count($this->items);
     }
 
-    //IteratorAggregate
-    public function getIterator()
-    {
-        return new ArrayIterator($this->items);
-    }
 
     //JsonSerializable
     public function jsonSerialize()
@@ -683,4 +685,5 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
 
         return (array) $items;
     }
+
 }
