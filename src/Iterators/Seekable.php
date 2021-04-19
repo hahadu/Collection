@@ -16,7 +16,7 @@ trait Seekable
      */
     public function seek($offset)
     {
-        $this->getIterator()->seek($offset);
+        $this->getIterator->seek($offset);
 
     }
 

@@ -6,10 +6,12 @@ use ArrayIterator;
 
 trait Iteratorable
 {
+    protected $getIterator;
     //IteratorAggregate
-    public function getIterator()
+    public function getIterator($flags=0)
     {
-        return new ArrayIterator($this->items);
+        return $this->getIterator = new ArrayIterator($this->items,$flags);
+        //return $this->getIterator;
     }
 
     /**
@@ -18,7 +20,7 @@ trait Iteratorable
      */
     public function current()
     {
-        return $this->getIterator()->current();
+        return $this->getIterator->current();
 
     }
 
@@ -28,7 +30,7 @@ trait Iteratorable
      */
     public function next()
     {
-        $this->getIterator()->next();
+        $this->getIterator->next();
     }
 
     /**
@@ -37,7 +39,7 @@ trait Iteratorable
      */
     public function key()
     {
-        return $this->getIterator()->key();
+        return $this->getIterator->key();
     }
 
     /**
@@ -47,7 +49,7 @@ trait Iteratorable
      */
     public function valid()
     {
-        $this->getIterator()->valid();
+        return $this->getIterator->valid();
     }
 
     /**
@@ -56,7 +58,7 @@ trait Iteratorable
      */
     public function rewind()
     {
-        $this->getIterator()->rewind();
+        $this->getIterator->rewind();
 
     }
 
