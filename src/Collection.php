@@ -23,9 +23,8 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
     protected $items = [];
 
 
-    public function __construct($items = [], $flags = 0, $iteratorClass = "ArrayIterator")
+    public function __construct($items = [])
     {
-     //   parent::__construct($items,$flags,$iteratorClass);
 
         $this->items = $this->convertToArray($items);
     }
