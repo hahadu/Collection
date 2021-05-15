@@ -499,7 +499,7 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
      * @access public
      * @param string $field 排序字段
      * @param string $order 排序
-     * @return $this
+     * @return static
      */
     public function order(string $field, string $order = 'asc')
     {
@@ -574,7 +574,7 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
 
     /****
      * 数组去重
-     * @return mixed
+     * @return static
      */
     public function unique(){
         $unique = array_unique($this->items);
@@ -583,7 +583,7 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
 
     /*****
      * 列出数组中重复的元素
-     * @return mixed
+     * @return static
      */
     public function diff_assoc(){
         $unique = $this->unique()->toArray();
@@ -605,7 +605,11 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
         return new static(array_slice($this->items, $offset, $length, $preserveKeys));
     }
 
-    // ArrayAccess
+    /*****
+     * ArrayAccess
+     * @param mixed $offset
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->items);
@@ -614,7 +618,7 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
     /*****
      * 函数搜索数组中是否存在指定的值
      * @param mixed $needle 需要查找的内容
-     * @param false $strict 是否不欺负大小写
+     * @param false $strict 是否不区分大小写
      * @return boolean
      */
     public function isIn($needle, $strict = false){
@@ -641,6 +645,10 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
     }
 
     //Countable
+
+    /****
+     * @return int
+     */
     public function count()
     {
         return count($this->items);
@@ -664,6 +672,9 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
         return json_encode($this->toArray(), $options);
     }
 
+    /*****
+     * @return string
+     */
     public function __toString()
     {
         return $this->toJson();
