@@ -616,6 +616,16 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
     }
 
     /*****
+     * 用给定字符分割数组，返回字符串
+     * @param string $glue
+     * @return string
+     */
+    public function implode($glue=''): string
+    {
+        return implode($glue,$this->items);
+    }
+
+    /*****
      * 函数搜索数组中是否存在指定的值
      * @param mixed $needle 需要查找的内容
      * @param false $strict 是否不区分大小写
@@ -623,6 +633,22 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
      */
     public function isIn($needle, $strict = false){
         return in_array($needle, $this->items,$strict);
+    }
+
+    /*******
+     * 检查是否存在指定值
+     */
+    public function has($key){
+        $keys = is_array($key) ? $key : func_get_args();
+
+        foreach ($keys as $value) {
+            if (! array_key_exists($value, $this->items)) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     public function offsetGet($offset)
