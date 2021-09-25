@@ -7,6 +7,7 @@ use ArrayAccess;
 use Countable;
 use Hahadu\Collect\Iterators\Iteratorable;
 use Hahadu\Collect\Iterators\Seekable;
+use Hahadu\Collect\Iterators\toSerialize;
 use IteratorAggregate;
 use JsonSerializable;
 use Hahadu\Collect\Interfaces\ArrayInterface;
@@ -16,6 +17,7 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
 {
     use Iteratorable;
     use Seekable;
+    use toSerialize;
     /**
      * 数据集数据
      * @var array
@@ -678,32 +680,6 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
     public function count()
     {
         return count($this->items);
-    }
-
-
-    //JsonSerializable
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    /**
-     * 转换当前数据集为JSON字符串
-     * @access public
-     * @param integer $options json参数
-     * @return string
-     */
-    public function toJson(int $options = JSON_UNESCAPED_UNICODE): string
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
-    /*****
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toJson();
     }
 
     /**
