@@ -13,6 +13,7 @@ use JsonSerializable;
 use Hahadu\Collect\Interfaces\ArrayInterface;
 use Hahadu\Collect\Interfaces\JsonInterface;
 
+
 class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSerializable,JsonInterface,ArrayInterface
 {
     use Iteratorable;
@@ -697,5 +698,6 @@ class Collection implements  ArrayAccess, Countable, IteratorAggregate, JsonSeri
 
         return (array) $items;
     }
+
 
 }

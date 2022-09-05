@@ -13,13 +13,14 @@ if (!function_exists('value')) {
     }
 }
 
-if(!function_exists('collect')){
+if(!function_exists('collections')){
     /*****
      * @param array $array
      * @return Collection
      */
-    function collect(array $array=[]): Collection
+    function collections(array $array=[]): Collection
     {
+        
         return new Collection($array);
     }
 }
